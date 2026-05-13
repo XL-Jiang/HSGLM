@@ -1,12 +1,12 @@
 from Module import  *
 from einops import rearrange, repeat
 
-class L_MDGL(nn.Module):
+class L_SGL(nn.Module):
     """
-    L_MDGL (Local Multi-Dynamic Graph Learning) model.
+    L_SGL (Local spatiotemporal graph learning) model.
     """
     def __init__(self,hidden_dim, num_time,window_size, kernel_size):
-        super(L_MDGL, self).__init__()
+        super(L_SGL, self).__init__()
         self.initial_linear = nn.Linear(window_size, hidden_dim)
         self.TConv  = T_convolution(kernel_size = kernel_size, inc=num_time)
         self.DGConstruction = DynamicGraphConstruction()
