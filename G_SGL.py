@@ -1,12 +1,12 @@
 from Module import  *
 from einops import rearrange, repeat
 
-class G_MDGL(nn.Module):
+class G_SGL(nn.Module):
     """
-    G_MDGL (Global Multi-Dynamic Graph Learning) model.
+    G_SGL (Global spatiotemporal graph learning) model.
     """
     def __init__(self, input_dim1, input_dim2,input_dim3,hidden_dim,topk,window_size,num_heads, num_time,cls_token='sum', readout='sero'):
-        super(G_MDGL, self).__init__()
+        super(G_SGL, self).__init__()
         assert cls_token in ['sum', 'mean', 'max', 'param']
         if cls_token == 'sum':
             self.cls_token = lambda x: x.sum(1)
