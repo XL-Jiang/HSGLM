@@ -5,7 +5,7 @@ import warnings
 import numpy as np
 import torch
 import util
-from LG_MDGL import LG_MDGL as model
+from HSGLM import HSGLM as model
 from torch.utils.tensorboard import SummaryWriter
 from torch.utils.data import DataLoader, TensorDataset
 
@@ -103,7 +103,7 @@ def train(opt):
         if not os.path.exists(os.path.join('{}_result'.format(opt.dataset), 'attention3')):
             os.makedirs(os.path.join('{}_result'.format(opt.dataset), 'attention3'))
 
-        LG_MDGL= model(
+        HSGLM = model(
             input_dim1=num_ROIs1,
             input_dim2=num_ROIs2,
             input_dim3=num_ROIs3,
@@ -118,7 +118,7 @@ def train(opt):
             kernel_size = opt.kernel_size,
             cls_token=opt.cls_token,
             readout=opt.readout)
-        LG_MDGL = LG_MDGL.to(device)
+        HSGLM  = HSGLM.to(device)
         criterion = torch.nn.CrossEntropyLoss() if dataset.num_classes > 1 else torch.nn.MSELoss()
 
         optimizer = torch.optim.Adam(LG_MDGL.parameters(), lr=opt.lr,weight_decay = opt.wd)
@@ -154,7 +154,7 @@ def train(opt):
                 phd_ftrs = torch.tensor(batch_phd_data, dtype=torch.float32)
 
                 logit, latent,loss, attention = step(
-                    model=LG_MDGL,
+                    model= HSGLM,
                     criterion=criterion,
                     t1=dyn_t1,
                     t2=dyn_t2,
@@ -187,11 +187,10 @@ def train(opt):
             torch.save({
                 'fold': fold,
                 'epoch': epoch + 1,
-                'model': LG_MDGL.state_dict(),
+                'model': HSGLM.state_dict(),
                 'optimizer': optimizer.state_dict(),
                 'scheduler': scheduler.state_dict()},
                 os.path.join('{}_result'.format(opt.dataset), 'checkpoint.pth'))
-            # 记录训练损失
             train_losses.append(train_loss_accumulate / len(train_dataloader))
 
             if opt.validate:
@@ -222,7 +221,7 @@ def train(opt):
                         phd_ftrs = torch.tensor(batch_phd_data, dtype=torch.float32)
 
                         logit, latent,loss, attention = step(
-                            model=LG_MDGL,
+                            model = HSGLM,
                             criterion=criterion,
                             t1=dyn_t1,
                             t2=dyn_t2,
@@ -250,7 +249,7 @@ def train(opt):
                 summary_writer_val.flush()
 
         # finalize fold
-        torch.save(LG_MDGL.state_dict(), os.path.join('{}_result'.format(opt.dataset), 'model', str(fold), 'model.pth'))
+        torch.save(HSGLM.state_dict(), os.path.join('{}_result'.format(opt.dataset), 'model', str(fold), 'model.pth'))
         checkpoint.update({'epoch': 0, 'model': None, 'optimizer': None, 'scheduler': None})
     summary_writer.close()
     summary_writer_val.close()
@@ -303,7 +302,7 @@ def test(opt):
 
         test_dataset = TensorDataset(torch.from_numpy(timeseries1[test_ind]),torch.from_numpy(timeseries2[test_ind]),torch.from_numpy(timeseries3[test_ind]), torch.from_numpy(label[test_ind]), torch.from_numpy(phonetic_data[test_ind]))
         test_dataloader = DataLoader(test_dataset, batch_size=opt.minibatch_size, shuffle=False,num_workers=opt.num_workers, pin_memory=True)
-        LG_MDGL = model(
+        HSGLM = model(
             input_dim1=num_ROIs1,
             input_dim2=num_ROIs2,
             input_dim3=num_ROIs3,
@@ -318,8 +317,8 @@ def test(opt):
             kernel_size=opt.kernel_size,
             cls_token=opt.cls_token,
             readout=opt.readout)
-        LG_MDGL = LG_MDGL.to(device)
-        LG_MDGL.load_state_dict(torch.load(os.path.join('{}_result'.format(opt.dataset), 'model', str(fold), 'model.pth')))
+        HSGLM = LHSGLM.to(device)
+        HSGLM.load_state_dict(torch.load(os.path.join('{}_result'.format(opt.dataset), 'model', str(fold), 'model.pth')))
         criterion = torch.nn.CrossEntropyLoss() if dataset.num_classes > 1 else torch.nn.MSELoss()
         fold_attention1 = {'node_attention': []}
         fold_attention2 = {'node_attention': []}
@@ -353,7 +352,7 @@ def test(opt):
                 test_label = torch.tensor(batch_label, dtype=torch.long)
                 phd_ftrs = torch.tensor(batch_phd_data, dtype=torch.float32)
                 logit,latent, loss, attention= step(
-                    model=LG_MDGL,
+                    model=HSGLM,
                     criterion=criterion,
                     t1=dyn_t1,
                     t2=dyn_t2,
