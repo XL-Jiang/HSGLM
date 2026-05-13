@@ -1,4 +1,4 @@
-# LG-MDGL
+# HSGLM
 Code for Hierarchical Spatiotemporal Graph Learning with Mamba for Dynamic Brain Functional Connectivity Network Analysis
 
 <img width="709" height="283" alt="image" src="https://github.com/user-attachments/assets/ccba83ed-d735-401c-8e13-9fc75acfdc59" />
