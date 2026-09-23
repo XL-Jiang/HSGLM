@@ -1,18 +1,18 @@
-# HSGLM
+## HSGLM
 The official Pytorch implementation of paper "Hierarchical Spatiotemporal Graph Learning with Mamba for Dynamic Brain Functional Connectivity Network Analysis" accepted by 
 
-# Abstract
+## Abstract
 
-# Overall Pipeline
+## Overall Pipeline
 
-# Highlights
+## Highlights
 
 ## Acknowledgements & Third-Party Code
 We gratefully acknowledge the following open-source projects that helped shape this repository:
 - **[alxndrTL/mamba.py](https://github.com/alxndrTL/mamba.py)** (MIT): Structure and implementation details in `mamba.py` follow alxndrTL's implementation.
 Please refer to individual files for specific license headers.
 
-# Dependencies & Environment Setup
+## Dependencies & Environment Setup
 This project is implemented in Python 3.9 with PyTorch 1.12.1 and CUDA 11.3. Follow the steps below to set up your environment:
 
 ```bash
