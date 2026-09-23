@@ -7,6 +7,11 @@ The official Pytorch implementation of paper "Hierarchical Spatiotemporal Graph 
 
 # Highlights
 
+## Acknowledgements & Third-Party Code
+We gratefully acknowledge the following open-source projects that helped shape this repository:
+- **[alxndrTL/mamba.py](https://github.com/alxndrTL/mamba.py)** (MIT): Structure and implementation details in `mamba.py` follow alxndrTL's implementation.
+Please refer to individual files for specific license headers.
+
 # Dependencies & Environment Setup
 This project is implemented in Python 3.9 with PyTorch 1.12.1 and CUDA 11.3. Follow the steps below to set up your environment:
 
@@ -17,7 +22,4 @@ pip install torch-sparse -f [https://data.pyg.org/whl/torch-1.12.1+cu113.html](h
 pip install torch-geometric==2.6.1
 pip install -r requirements.txt
 
-## Acknowledgements & Third-Party Code
-We gratefully acknowledge the following open-source projects that helped shape this repository:
-- **[alxndrTL/mamba.py](https://github.com/alxndrTL/mamba.py)** (MIT): Structure and implementation details in `mamba.py` follow alxndrTL's implementation.
-Please refer to individual files for specific license headers.
+
