@@ -1,0 +1,21 @@
+defaults:
+  - dataset: ABIDE2
+  - model: HSGLM
+  - optimizer: Adam
+  - training: basic_training
+
+
+seeds: [0,1,2,3,4]
+state: training #testing,training.evaluation
+repeat_time: 5
+log_path: result
+save_test_attn_weights: True
+cv_mode: kfold
+
+kfold:
+  enable: true
+  n_splits: 5
+
+grid_search:
+  enable: true
+  config_file: "hsglm_param.yaml"

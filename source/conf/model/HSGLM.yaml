@@ -1,0 +1,8 @@
+name: HSGLM
+hidden_dim: 32 #for output of GCNs
+top_alpha: 5 #-1 fuse all ROIs
+sparsity_beta: 30
+mamba_layers: 1
+num_heads: 1
+
+

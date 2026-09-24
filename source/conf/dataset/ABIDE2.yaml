@@ -1,0 +1,7 @@
+name: abide2
+batch_size: 16
+window_length: 20
+step_size: 5
+path: "DY_AAL_90+CC200+HO96_w-${.window_length}_s-${.step_size}_abide2.h5py"
+stratified: True
+drop_last: False

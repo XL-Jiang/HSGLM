@@ -1,0 +1,6 @@
+name: training_monitoring
+epochs: 100
+warmup_epochs: 50
+measure_epochs: 10
+min_epochs: 60
+patience: 10
